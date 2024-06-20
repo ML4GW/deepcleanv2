@@ -24,19 +24,19 @@ data:
   # channels: []
   train_duration: 4096
   test_duration: 8192
-  train_stride: 0.25
-  valid_frac: 0.1
-  inference_sampling_rate: 4
+  train_stride: 0.0625
+  valid_frac: 0.33
+  inference_sampling_rate: 64
   start_offset: 0
 
   # preprocessing args
-  batch_size: 32
+  batch_size: 512
   kernel_length: 8
   filt_order: 8
   # freq_low: []
   # freq_high: []
 optimizer:
-  lr: 3.2e-2
+  lr: 0.25
 lr_scheduler:
   pct_start: 0.33
 trainer:

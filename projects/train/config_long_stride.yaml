@@ -20,39 +20,23 @@ model:
   patience: 20
 data:
   # loading args
-  fname: /home/kamalan/dc-demo/data/K-K1_lldata-1369291863-16384.hdf5
-  channels: [
-    K1:PEM-MIC_BS_BOOTH_BS_Z_OUT_DQ,
-    K1:PEM-MIC_BS_FIELD_BS_Z_OUT_DQ,
-    K1:PEM-MIC_BS_TABLE_POP_Z_OUT_DQ,
-    K1:PEM-MIC_IXC_BOOTH_IXC_Z_OUT_DQ,
-    K1:PEM-MIC_IXC_FIELD_IXC_Z_OUT_DQ,
-    K1:PEM-MIC_IYC_BOOTH_IYC_Z_OUT_DQ,
-    K1:PEM-MIC_OMC_BOOTH_OMC_Z_OUT_DQ,
-    K1:PEM-MIC_OMC_TABLE_AS_Z_OUT_DQ,
-    K1:PEM-MIC_TMSX_TABLE_TMS_Z_OUT_DQ,
-    K1:PEM-VOLT_AS_TABLE_GND_OUT_DQ,
-    K1:PEM-VOLT_IMCREFL_TABLE_GND_OUT_DQ,
-    K1:PEM-VOLT_ISS_TABLE_GND_OUT_DQ,
-    K1:PEM-VOLT_OMC_CHAMBER_GND_OUT_DQ,
-    K1:PEM-VOLT_PSL_TABLE_GND_OUT_DQ,
-    K1:PEM-VOLT_REFL_TABLE_GND_OUT_DQ,
-  ]
+  # fname:
+  # channels: []
   train_duration: 4096
   test_duration: 8192
-  train_stride: 0.0625
-  valid_frac: 0.33
-  inference_sampling_rate: 64
+  train_stride: 0.25
+  valid_frac: 0.1
+  inference_sampling_rate: 4
   start_offset: 0
 
   # preprocessing args
-  batch_size: 512
+  batch_size: 32
   kernel_length: 8
   filt_order: 8
-  freq_low: [55]
-  freq_high: [65]
+  # freq_low: []
+  # freq_high: []
 optimizer:
-  lr: 0.25
+  lr: 3.2e-2
 lr_scheduler:
   pct_start: 0.33
 trainer:
@@ -62,7 +46,7 @@ trainer:
   logger:
     - class_path: lightning.pytorch.loggers.CSVLogger
       init_args:
-        save_dir: /home/kamalan/dc-demo/results/my-second-run_K1
+        # save_dir:
         flush_logs_every_n_steps: 10
   # devices:
   # strategy: set to ddp if len(devices) > 1
