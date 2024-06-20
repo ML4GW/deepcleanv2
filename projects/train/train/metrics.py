@@ -145,7 +145,7 @@ class OnlinePsdRatio(Metric):
         # reshape our raw strain into a timeseries
         raw = torch.cat(self.strain, dim=0)[1 : num_frames - 1]
         raw = raw.view(1, -1)
-        return noise, raw.double
+        return noise, raw.double()
 
     def compute(self, reduce: bool = True):
         noise, raw = self.clean()
