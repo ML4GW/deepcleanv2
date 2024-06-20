@@ -15,12 +15,21 @@ root = Path(__file__).resolve().parent.parent
 class DeepCleanSandbox(singularity.SingularitySandbox):
     sandbox_type = "deepclean"
 
+    @property
+    def data_directories(self):
+        return ["/cvmfs", "/hdfs", "/gpfs", "/ceph", "/hadoop", "/archive"]
+
     def _get_volumes(self):
         volumes = super()._get_volumes()
         if self.task and getattr(self.task, "dev", False):
             volumes[str(root)] = "/opt/deepclean"
-        return volumes
 
+        # bind data directories if they exist on this cluster
+        for dir in self.data_directories:
+            if os.path.exists(dir):
+                volumes[dir] = dir
+
+        return volumes
 
 class DeepCleanTask(law.SandboxTask):
     image = luigi.Parameter()

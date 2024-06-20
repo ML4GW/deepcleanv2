@@ -308,7 +308,7 @@ class LiveDataBuffer:
             based on the timestamps in their filenames.
         channels: list of channels
         edge_duration: duration of the data to be added before and after 
-            the target segment
+            the target segment to avoid the edge effect
     """
     def __init__(self, crawler: Iterable, channels: Union[str, Iterable[str]]):
         self.crawler = crawler
@@ -328,8 +328,11 @@ class LiveDataBuffer:
             self.data = np.hstack((self.data, new_data))
     
     def update(self):
+        # should wait for sometime for the next frame to be available
+        # 
         new_data = load_frame(fname=str(next(self.crawler)), channels=self.channels)
         self.data = np.hstack((self.data, new_data))
+        # remove the earliest one second
         self.data = self.data[:, int(self.edge_duration * self.sample_rate):]
 
 

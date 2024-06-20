@@ -154,7 +154,7 @@ class Fetch(DataTask, law.LocalWorkflow):
             str(start),
             "--end",
             str(start + duration),
-            "--sample-rate",
+            "--sample_rate",
             str(self.sample_rate),
             "--prefix",
             self.prefix,

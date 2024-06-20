@@ -36,17 +36,15 @@ class DeepCleanInferenceDataset(pl.LightningDataModule):
         super().__init__()
         self.__logger = logging.getLogger("DeepClean Dataset")
         self.save_hyperparameters()
-        self.sample_rate = sample_rate
 
 
-        stride = int(clean_stride * self.sample_rate)
-        kernel_size = int(kernel_length * self.sample_rate)
+        self.stride = int(clean_stride * self.hparams.sample_rate)
 
         # create some modules we'll use for pre/postprocessing
         self.X_scaler = ChannelWiseScaler(len(self.witness_channels))
         self.y_scaler = ChannelWiseScaler()
         self.bandpass = BandpassFilter(
-            freq_low, freq_high, self.sample_rate, filt_order
+            freq_low, freq_high, self.hparams.sample_rate, filt_order
         )
         
         self.hoft_dir    = Path(hoft_dir)
@@ -77,7 +75,7 @@ class DeepCleanInferenceDataset(pl.LightningDataModule):
             self.X_inference,
             kernel_size=self.kernel_size,
             batch_size=self.hparams.batch_size,
-            batches_per_epoch= 1, #self.steps_per_epoch,
+            stride = self.stride,
             coincident=True,
             shuffle=False,
             device = "cpu",
@@ -88,7 +86,7 @@ class DeepCleanInferenceDataset(pl.LightningDataModule):
             self.y_inference,
             kernel_size=self.kernel_size,
             batch_size=self.hparams.batch_size,
-            batches_per_epoch= 1, #self.steps_per_epoch,
+            stride = self.stride, 
             coincident=True,
             shuffle=False,
             device = "cpu",
@@ -110,7 +108,7 @@ class DeepCleanInferenceDataset(pl.LightningDataModule):
 
     @property
     def kernel_size(self):
-        return int(self.hparams.kernel_length * self.sample_rate)
+        return int(self.hparams.kernel_length * self.hparams.sample_rate)
 
 
     def update(self):
@@ -138,6 +136,7 @@ class DeepCleanInferenceDataset(pl.LightningDataModule):
             self.X_inference,
             kernel_size=self.kernel_size,
             batch_size=self.hparams.batch_size,
+            stride = self.stride, 
             batches_per_epoch= 1, #self.steps_per_epoch,
             coincident=True,
             shuffle=False,
@@ -149,6 +148,7 @@ class DeepCleanInferenceDataset(pl.LightningDataModule):
             self.y_inference,
             kernel_size=self.kernel_size,
             batch_size=self.hparams.batch_size,
+            stride = self.stride, 
             batches_per_epoch= 1, #self.steps_per_epoch,
             coincident=True,
             shuffle=False,

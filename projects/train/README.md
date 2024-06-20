@@ -17,7 +17,7 @@ poetry install .
 ```
 
 ### Set visible GPU and run the training
-All of the parameters needed for setting up the dataset, training and logging can be found in `config-test.yaml` and `try_train.py`
+All of the parameters needed for setting up the dataset, training and logging can be found in `config-test.yaml` and `run_train.py`
 ```
 export CUDA_VISIBLE_DEVICES=0
 poetry run python run-train.py
