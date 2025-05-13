@@ -51,6 +51,16 @@ class AframeCLI(LightningCLI):
             apply_on="instantiate",
         )
         parser.link_arguments(
+            "data.clean_kernel_length",
+            "model.metric.init_args.clean_kernel_length",
+            apply_on="instantiate",
+        )
+        parser.link_arguments(
+            "data.clean_stride",
+            "model.metric.init_args.clean_stride",
+            apply_on="instantiate",
+        )
+        parser.link_arguments(
             "data.bandpass",
             "model.metric.init_args.bandpass",
             apply_on="instantiate",

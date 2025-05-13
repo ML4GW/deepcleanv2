@@ -13,23 +13,24 @@ model:
       fftlength: 2
       asd: False
   metric:
-    class_path: train.metrics.OnlinePsdRatio
+    class_path: train.metrics.OfflinePsdRatio
     init_args:
-      filter_pad: 0.8
-      edge_pad: 0.2
+      # filter_pad: 0.8 
+      # edge_pad: 0.2
+      window: hann
   patience: 20
 data:
   # loading args
   # fname:
   # channels: []
   train_duration: 1024
-  test_duration: 4096
+  test_duration: 2048
   train_stride: 0.25
-  valid_frac: 0.10
-  inference_sampling_rate: 16
+  valid_frac: 0.33
+  inference_sampling_rate: 2
   start_offset: 0
-  clean_kernel_length: 1
-  clean_stride: 1
+  clean_kernel_length: 8
+  clean_stride: 4
 
   # preprocessing args
   batch_size: 32
@@ -38,13 +39,14 @@ data:
   # freq_low: []
   # freq_high: []
 optimizer:
-  lr: 4e-3.2
+  lr: 0.2
 lr_scheduler:
-  # pct_start: 0.33
-  monitor: "val_loss"
-  factor: 0.2 
-  patience: 1 
-  threshold: 0.001
+  pct_start: 0.33
+# lr_scheduler:
+#   monitor: "train_loss"
+#   factor: 0.02 
+#   patience: 1 
+#   threshold: 0.001
 trainer:
   # by default, use a local CSV logger.
   # Options in train task for using a
@@ -60,7 +62,7 @@ trainer:
   # now because our convolutions aren't really large enough
   # precision: 16-mixed
   accelerator: auto
-  max_epochs: 100
+  max_epochs: 200
   check_val_every_n_epoch: 1
   log_every_n_steps: 20
   benchmark: true

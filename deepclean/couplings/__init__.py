@@ -5,7 +5,7 @@ from .sub_60Hz import Sub60HzRestricted
 from .sub_60Hz_O3_MDC import Sub60Hz_O3_MDC
 from .sub_CDC_10Hz import Sub10Hz
 from .sub_CDC_30Hz import Sub30Hz
-from .sub_CDC_60Hz import Sub60Hz
+# from .sub_CDC_60Hz import Sub60Hz
 from .sub_CDC_105Hz import Sub105Hz
 from .sub_CDC_120Hz import Sub120Hz
 from .sub_CDC_150Hz import Sub150Hz

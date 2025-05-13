@@ -5,7 +5,7 @@ from lightning import pytorch as pl
 
 from train.architectures import Architecture
 from train.callbacks import ModelCheckpoint, PsdPlotter
-from train.metrics import OnlinePsdRatio, PsdRatio
+from train.metrics import  OfflinePsdRatio, OnlinePsdRatio, PsdRatio
 
 Tensor = torch.Tensor
 
@@ -15,7 +15,7 @@ class DeepClean(pl.LightningModule):
         self,
         arch: Architecture,
         loss: PsdRatio,
-        metric: OnlinePsdRatio,
+        metric: OfflinePsdRatio,
         patience: Optional[int] = None,
         save_top_k_models: int = 10,
     ) -> None:
