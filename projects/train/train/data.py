@@ -231,7 +231,8 @@ class DeepCleanDataset(pl.LightningDataModule):
             batches_per_epoch=self.steps_per_epoch,
             coincident=True,
             shuffle=True,
-            device=f"cuda:{self.trainer.device_ids[0]}",
+            # device=f"cuda:{self.trainer.device_ids[0]}",
+            device=f"cuda:0",
         )
         return dataset
 
