@@ -1,11 +1,11 @@
 # or wherever you want to save this
-export DEEPCLEAN_CONTAINER_ROOT=~/images/deepclean
+export DEEPCLEAN_CONTAINER_ROOT=~/GW/images/deepclean
 mkdir -p $DEEPCLEAN_CONTAINER_ROOT
 
-export DATA_DIR=~/deepclean/data/CDC_test120Hz
+export DATA_DIR=~/GW/deepclean/data/CDC_test120Hz
 mkdir -p $DATA_DIR
 
-export RESULTS_DIR=~/deepclean/results
+export RESULTS_DIR=~/GW/deepclean/results
 mkdir -p $RESULTS_DIR
 
 export DEEPCLEAN_IFO='H1'
